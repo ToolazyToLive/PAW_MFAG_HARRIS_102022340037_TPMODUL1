@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - Telkom University</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <img src="logo.png" alt="Enterprise Application Development" class="logo">
+        <h2>Student Registration</h2>
+        
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+                <span class="error" id="nameError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" required>
+                <span class="error" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="nim">Student ID (NIM)</label>
+                <input type="text" id="nim" name="nim" required>
+                <span class="error" id="nimError"></span>
+            </div>
+
+            <div class="button-container">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+
+        <div id="message" class="alert" style="display:none;"></div>
+    </div>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let valid = true;
+
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let nim = document.getElementById("nim").value.trim();
+            
+            let nameError = document.getElementById("nameError");
+            let emailError = document.getElementById("emailError");
+            let nimError = document.getElementById("nimError");
+            let messageBox = document.getElementById("message");
+
+            // Reset errors
+            nameError.textContent = "";
+            emailError.textContent = "";
+            nimError.textContent = "";
+            messageBox.style.display = "none";
+
+            // Validate name
+            if (name === "") {
+                nameError.textContent = "Nama wajib diisi";
+                valid = false;
+            }
+
+            // Validate email
+            if (email === "") {
+                emailError.textContent = "Email must be filled in";
+                valid = false;
+            } else if (!email.match(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/)) {
+                emailError.textContent = "Invalid email format";
+                valid = false;
+            }
+
+            // Validate NIM
+            if (nim === "") {
+                nimError.textContent = "NIM wajib diisi";
+                valid = false;
+            } else if (!nim.match(/^[0-9]+$/)) {
+                nimError.textContent = "NIM harus berupa angka";
+                valid = false;
+            }
+
+            if (valid) {
+                messageBox.textContent = "Berhasil! Data pendaftaran telah diterima.";
+                messageBox.className = "alert alert-success";
+                messageBox.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
